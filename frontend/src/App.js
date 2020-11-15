@@ -9,6 +9,8 @@ import LoginScreen from './Screens/LoginScreen';
 import OrderScreen from './Screens/orderScreen';
 import PaymentScreen from './Screens/PaymentScreen';
 import PlaceOrderScreen from './Screens/PlaceOrderScreen';
+import ProductEditScreen from './Screens/ProductEditScreen';
+import ProductListScreen from './Screens/ProductListScreen';
 import ProductScreen from './Screens/ProductScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import RegisterScreen from './Screens/RegisterScreen';
@@ -33,6 +35,8 @@ const App = () => {
 					<Route path='/cart/:id?' component={CartScreen} />
 					<Route path='/admin/userlist' component={UserListScreen} />
 					<Route path='/admin/user/:id/edit' component={UserEditScreen} />
+					<Route path='/admin/productlist' component={ProductListScreen} />
+					<Route path='/admin/product/:id/edit' component={ProductEditScreen} />
 					<Route path='/' exact component={HomeScreen} />
 				</Container>
 			</main>
