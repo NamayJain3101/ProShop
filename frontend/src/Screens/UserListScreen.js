@@ -56,7 +56,7 @@ const UserListScreen = ({ history }) => {
                                     <td><a href={`mailto:${user.email}`}>{user.email}</a></td>
                                     <td>{user.isAdmin ? <FaCheck style={{ color: 'green' }} /> : <FaTimes style={{ color: 'red' }} />}</td>
                                     <td>
-                                        <LinkContainer to={`/users/${user._id}/edit`}>
+                                        <LinkContainer to={`/admin/user/${user._id}/edit`}>
                                             <Button variant='primary' className='btn-sm'><FaEdit /></Button>
                                         </LinkContainer>
                                         <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
