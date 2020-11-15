@@ -7,12 +7,15 @@ import Message from '../Components/Message'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { createProduct, deleteProduct, listProducts } from '../Actions/ProductActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
+import Paginate from '../Components/Paginate'
 
-const ProductListScreen = ({ history }) => {
+const ProductListScreen = ({ history, match }) => {
     const dispatch = useDispatch()
 
+    const pageNumber = match.params.pageNumber || 1
+
     const productList = useSelector(state => state.productList)
-    const { loading, error, products } = productList
+    const { loading, error, products, pages, page } = productList
 
     const productDelete = useSelector(state => state.productDelete)
     const { loading: loadingDelete, success: successDelete, error: errorDelete } = productDelete
@@ -33,9 +36,9 @@ const ProductListScreen = ({ history }) => {
         if (successCreate) {
             history.push(`/admin/product/${createdProduct._id}/edit`)
         } else {
-            dispatch(listProducts())
+            dispatch(listProducts('', pageNumber))
         }
-    }, [dispatch, userInfo, history, successDelete, successCreate, createdProduct])
+    }, [dispatch, userInfo, history, successDelete, successCreate, createdProduct, pageNumber])
 
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure?')) {
@@ -64,39 +67,42 @@ const ProductListScreen = ({ history }) => {
             {loadingCreate && <Loader />}
             {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
-                <Table striped bordered hover responsive className='table-sm'>
-                    <thead>
-                        <tr>
-                            <td>ID</td>
-                            <td>NAME</td>
-                            <td>PRICE</td>
-                            <td>CATEGORY</td>
-                            <td>BRAND</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products.map(product => {
-                            return (
-                                <tr key={product._id}>
-                                    <td>{product._id}</td>
-                                    <td>{product.name}</td>
-                                    <td>${product.price}</td>
-                                    <td>{product.category}</td>
-                                    <td>{product.brand}</td>
-                                    <td>
-                                        <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                                            <Button variant='primary' className='btn-sm'><FaEdit /></Button>
-                                        </LinkContainer>
-                                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(product._id)}>
-                                            <FaTrash />
-                                        </Button>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </Table>
+                <React.Fragment>
+                    <Table striped bordered hover responsive className='table-sm'>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>NAME</td>
+                                <td>PRICE</td>
+                                <td>CATEGORY</td>
+                                <td>BRAND</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {products.map(product => {
+                                return (
+                                    <tr key={product._id}>
+                                        <td>{product._id}</td>
+                                        <td>{product.name}</td>
+                                        <td>${product.price}</td>
+                                        <td>{product.category}</td>
+                                        <td>{product.brand}</td>
+                                        <td>
+                                            <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                                                <Button variant='primary' className='btn-sm'><FaEdit /></Button>
+                                            </LinkContainer>
+                                            <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(product._id)}>
+                                                <FaTrash />
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </Table>
+                    <Paginate pages={pages} page={page} isAdmin={true} />
+                </React.Fragment>
             )}
         </React.Fragment>
     )
