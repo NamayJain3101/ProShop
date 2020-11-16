@@ -34,12 +34,14 @@ const App = () => {
 					<Route path='/profile' component={ProfileScreen} />
 					<Route path='/product/:id' component={ProductScreen} />
 					<Route path='/cart/:id?' component={CartScreen} />
-					<Route path='/admin/userlist' component={UserListScreen} />
+					<Route path='/admin/userlist' exact component={UserListScreen} />
+					<Route path='/admin/userlist/:pageNumber' exact component={UserListScreen} />
 					<Route path='/admin/user/:id/edit' component={UserEditScreen} />
 					<Route path='/admin/productlist' exact component={ProductListScreen} />
 					<Route path='/admin/productlist/:pageNumber' exact component={ProductListScreen} />
 					<Route path='/admin/product/:id/edit' component={ProductEditScreen} />
-					<Route path='/admin/orderlist' component={OrderListScreen} />
+					<Route path='/admin/orderlist' exact component={OrderListScreen} />
+					<Route path='/admin/orderlist/:pageNumber' exact component={OrderListScreen} />
 					<Route path='/search/:keyword' exact component={HomeScreen} />
 					<Route path='/search/:keyword/page/:pageNumber' component={HomeScreen} />
 					<Route path='/page/:pageNumber' exact component={HomeScreen} />
