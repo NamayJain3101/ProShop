@@ -7,6 +7,7 @@ import { createProductReview, listProductDetails } from '../Actions/ProductActio
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+import Meta from '../Components/Meta'
 
 const ProductScreen = ({ match, history }) => {
 
@@ -55,6 +56,7 @@ const ProductScreen = ({ match, history }) => {
             </Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                 <React.Fragment>
+                    <Meta title={product.name} />
                     <Row>
                         <Col md={6}>
                             <Image src={product.image} alt={product.name} fluid />

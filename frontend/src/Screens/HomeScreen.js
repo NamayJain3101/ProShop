@@ -6,6 +6,9 @@ import { listProducts } from '../Actions/ProductActions'
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'
 import Paginate from '../Components/Paginate'
+import ProductCarousel from '../Components/ProductCarousel'
+import Meta from '../Components/Meta'
+import { Link } from 'react-router-dom'
 
 const HomeScreen = ({ match }) => {
     const keyword = match.params.keyword
@@ -22,6 +25,8 @@ const HomeScreen = ({ match }) => {
 
     return (
         <React.Fragment>
+            <Meta />
+            {!keyword ? <ProductCarousel /> : <Link to='/' className='btn btn-primary'>Go Back</Link>}
             <h1>Latest Products</h1>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                 <React.Fragment>
