@@ -51,7 +51,7 @@ const OrderScreen = ({ match, history }) => {
                 }
                 document.body.appendChild(script)
             }
-            if (!order || successPay || successDeliver) {
+            if (!order || (order._id !== orderId) || successPay || successDeliver) {
                 dispatch({ type: ORDER_PAY_RESET })
                 dispatch({ type: ORDER_DELIVER_RESET })
                 dispatch(getOrderDetails(orderId))
@@ -129,7 +129,7 @@ const OrderScreen = ({ match, history }) => {
                                                             </Link>
                                                         </Col>
                                                         <Col md={4}>
-                                                            {item.qty} * ${item.price} =  ${item.qty * item.price}
+                                                            {item.qty} x &#8377;{item.price} =  &#8377;{item.qty * item.price}
                                                         </Col>
                                                     </Row>
                                                 </ListGroupItem>
@@ -149,25 +149,25 @@ const OrderScreen = ({ match, history }) => {
                                 <ListGroupItem>
                                     <Row>
                                         <Col>Items</Col>
-                                        <Col>${order.itemsPrice}</Col>
+                                        <Col>&#8377;{order.itemsPrice}</Col>
                                     </Row>
                                 </ListGroupItem>
                                 <ListGroupItem>
                                     <Row>
                                         <Col>Shipping</Col>
-                                        <Col>${order.shippingPrice}</Col>
+                                        <Col>&#8377;{order.shippingPrice}</Col>
                                     </Row>
                                 </ListGroupItem>
                                 <ListGroupItem>
                                     <Row>
                                         <Col>Tax</Col>
-                                        <Col>${order.taxPrice}</Col>
+                                        <Col>&#8377;{order.taxPrice}</Col>
                                     </Row>
                                 </ListGroupItem>
                                 <ListGroupItem>
                                     <Row>
                                         <Col>Total</Col>
-                                        <Col>${order.totalPrice}</Col>
+                                        <Col>&#8377;{order.totalPrice}</Col>
                                     </Row>
                                 </ListGroupItem>
                                 {!order.isPaid && (
