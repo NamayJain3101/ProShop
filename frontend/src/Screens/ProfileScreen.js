@@ -98,6 +98,7 @@ const ProfileScreen = ({ history }) => {
                                 <th>DATE</th>
                                 <th>TOTAL</th>
                                 <th>PAID</th>
+                                <th>PAY-METHOD</th>
                                 <th>DELIVERED</th>
                                 <th></th>
                             </tr>
@@ -110,6 +111,7 @@ const ProfileScreen = ({ history }) => {
                                         <td>{order.createdAt.substring(0, 10)}</td>
                                         <td>&#8377;{order.totalPrice}</td>
                                         <td>{order.isPaid ? order.paidAt.substring(0, 10) : <FaTimes style={{ color: 'red' }} />}</td>
+                                        <td>{order.paymentMethod}</td>
                                         <td>{order.isDelivered ? order.deliveredAt.substring(0, 10) : <FaTimes style={{ color: 'red' }} />}</td>
                                         <td>
                                             <LinkContainer to={`/order/${order._id}`}>

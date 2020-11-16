@@ -40,6 +40,7 @@ const OrderListScreen = ({ history }) => {
                             <td>DATE</td>
                             <td>TOTAL PRICE</td>
                             <td>PAID</td>
+                            <td>PAY-METHOD</td>
                             <td>DELIVERED</td>
                         </tr>
                     </thead>
@@ -52,6 +53,7 @@ const OrderListScreen = ({ history }) => {
                                     <td>{order.createdAt.substring(0, 10)}</td>
                                     <td>&#8377;{order.totalPrice}</td>
                                     <td>{order.isPaid ? order.paidAt.substring(0, 10) : <FaTimes style={{ color: 'red' }} />}</td>
+                                    <td>{order.paymentMethod}</td>
                                     <td>{order.isDelivered ? order.deliveredAt.substring(0, 10) : <FaTimes style={{ color: 'red' }} />}</td>
                                     <td>
                                         <LinkContainer to={`/order/${order._id}`}>
