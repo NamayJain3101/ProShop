@@ -26,35 +26,35 @@ const PaymentScreen = ({ history }) => {
         history.push('/placeorder')
     }
 
-    return ( <
-        FormContainer >
-        <
-        CheckoutSteps step1 step2 step3 / >
-        <
-        h1 > Payment Method < /h1> <
-        Form onSubmit = { submitHandler } >
-        <
-        FormGroup >
-        <
-        FormLabel as = 'legend' > Select Method < /FormLabel> <
-        Col >
-        <
-        FormCheck type = 'radio'
-        label = 'PayPal or Credit Cart'
-        id = 'PayPal'
-        name = 'paymentMethod'
-        value = 'PayPal'
-        checked onChange = {
-            (e) => setPaymentMethod(e.target.value) } >
-        < /FormCheck> <
-        /Col> <
-        /FormGroup> <
-        Button type = 'submit'
-        variant = 'primary' >
-        Continue <
-        /Button> <
-        /Form> <
-        /FormContainer>
+    return (
+        <FormContainer >
+            <CheckoutSteps step1 step2 step3 />
+            <h1> Payment Method </h1>
+            <Form onSubmit={submitHandler}>
+                <FormGroup>
+                    <FormLabel as='legend' > Select Method </FormLabel>
+                    <Col>
+                        <FormCheck type='radio'
+                            label='PayPal or Credit Cart'
+                            id='PayPal'
+                            name='paymentMethod'
+                            value='PayPal'
+                            checked onChange={(e) => setPaymentMethod(e.target.value)} >
+                        </FormCheck>
+                        <FormCheck type='radio'
+                            label='Cash on Delivery'
+                            id='COD'
+                            name='paymentMethod'
+                            value='COD'
+                            onChange={(e) => setPaymentMethod(e.target.value)} >
+                        </FormCheck>
+                    </Col>
+                </FormGroup>
+                <Button type='submit' variant='primary'>
+                    Continue
+                </Button>
+            </Form>
+        </FormContainer>
     )
 }
 

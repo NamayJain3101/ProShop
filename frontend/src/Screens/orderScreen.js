@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import uuid from 'react-uuid'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { useEffect } from 'react'
 import { Button, Card, Col, Image, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
@@ -69,8 +70,18 @@ const OrderScreen = ({ match, history }) => {
     }, [dispatch, orderId, successPay, order, successDeliver, userInfo, history])
 
     const successPaymentHandler = (paymentResult) => {
-        console.log(paymentResult)
         dispatch(payOrder(orderId, paymentResult))
+    }
+
+    const codPaymentHandler = () => {
+        dispatch(payOrder(orderId, {
+            id: uuid(),
+            status: "COMPLETED",
+            payer: {
+                email_address: userInfo.email
+            },
+            update_time: Date.now()
+        }))
     }
 
     const deliverHandler = () => {
@@ -80,7 +91,7 @@ const OrderScreen = ({ match, history }) => {
     return (
         loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
             <React.Fragment>
-                {userInfo.isAdmin && <Link to='/admin/orderlist' className='btn btn-light my-3'>Go Back</Link>}
+                {userInfo && userInfo.isAdmin && <Link to='/admin/orderlist' className='btn btn-light my-3'>Go Back</Link>}
                 <h1>Order {order._id}</h1>
                 <Row>
                     <Col md={8}>
@@ -107,9 +118,11 @@ const OrderScreen = ({ match, history }) => {
                                     <strong>Method: </strong>
                                     {order.paymentMethod}
                                 </p>
-                                {order.isPaid
+                                {order.isPaid && order.paymentMethod !== 'COD'
                                     ? <Message variant='success'>Paid on {order.paidAt}</Message>
-                                    : <Message variant='danger'>Not Paid</Message>
+                                    : (order.isPaid && order.paymentMethod === 'COD')
+                                        ? <Message variant='success'>Pay On Delivery</Message>
+                                        : <Message variant='danger'>Not Paid</Message>
                                 }
                             </ListGroupItem>
                             <ListGroupItem>
@@ -170,12 +183,17 @@ const OrderScreen = ({ match, history }) => {
                                         <Col>&#8377;{order.totalPrice}</Col>
                                     </Row>
                                 </ListGroupItem>
-                                {!order.isPaid && (
+                                {!order.isPaid && (order.paymentMethod === 'PayPal') && (
                                     <ListGroupItem>
                                         {loadingPay && <Loader />}
                                         {!sdkReady ? <Loader /> : (
                                             <PayPalButton amount={order.totalPrice} currency='INR' onSuccess={successPaymentHandler} />
                                         )}
+                                    </ListGroupItem>
+                                )}
+                                {!order.isPaid && (order.paymentMethod === 'COD') && (
+                                    <ListGroupItem>
+                                        <Button onClick={codPaymentHandler} className='btn btn-block'>Pay On Delivery</Button>
                                     </ListGroupItem>
                                 )}
                                 {loadingDeliver && <Loader />}
