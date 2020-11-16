@@ -9,7 +9,7 @@ import { deliverOrder, getOrderDetails, payOrder } from '../Actions/orderActions
 import Message from '../Components/Message'
 import Loader from '../Components/Loader'
 import { useState } from 'react'
-import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from '../constants/orderConstants'
+import { ORDER_DELIVER_RESET, ORDER_DETAILS_RESET, ORDER_PAY_RESET } from '../constants/orderConstants'
 
 const OrderScreen = ({ match, history }) => {
 

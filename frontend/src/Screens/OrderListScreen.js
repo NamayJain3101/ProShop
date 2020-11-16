@@ -6,6 +6,7 @@ import Loader from '../Components/Loader'
 import Message from '../Components/Message'
 import { Button, Table } from 'react-bootstrap'
 import { listOrders } from '../Actions/orderActions'
+import { ORDER_DETAILS_RESET } from '../constants/orderConstants'
 
 const OrderListScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -17,6 +18,9 @@ const OrderListScreen = ({ history }) => {
     const { userInfo } = userLogin
 
     useEffect(() => {
+        dispatch({
+            type: ORDER_DETAILS_RESET
+        })
         if (userInfo && userInfo.isAdmin) {
             dispatch(listOrders())
         } else {
