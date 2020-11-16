@@ -8,7 +8,6 @@ import { listMyOrders } from '../Actions/orderActions'
 import { getUserDetails, updateUserDetails } from '../Actions/userActions'
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'
-import { USER_DETAILS_RESET } from '../constants/userConstants'
 
 const ProfileScreen = ({ history }) => {
     const [name, setName] = useState('')
