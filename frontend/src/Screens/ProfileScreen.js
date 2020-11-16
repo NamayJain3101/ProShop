@@ -8,8 +8,9 @@ import { listMyOrders } from '../Actions/orderActions'
 import { getUserDetails, updateUserDetails } from '../Actions/userActions'
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'
+import { USER_DETAILS_RESET } from '../constants/userConstants'
 
-const ProfileScreen = ({ location, history }) => {
+const ProfileScreen = ({ history }) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -34,12 +35,14 @@ const ProfileScreen = ({ location, history }) => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            if (!user.name) {
+            if (!user.name || (user._id !== userInfo._id)) {
                 dispatch(getUserDetails('profile'))
                 dispatch(listMyOrders())
+                console.log(user, userInfo)
             } else {
                 setName(user.name)
                 setEmail(user.email)
+                console.log(user, userInfo)
             }
         }
     }, [dispatch, history, userInfo, user])

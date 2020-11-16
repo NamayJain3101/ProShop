@@ -34,7 +34,6 @@ const UserEditScreen = ({ match, history }) => {
             if (!user.name || user._id !== userId) {
                 dispatch(getUserDetails(userId))
             } else {
-                console.log(user)
                 setName(user.name)
                 setEmail(user.email)
                 setIsAdmin(user.isAdmin)

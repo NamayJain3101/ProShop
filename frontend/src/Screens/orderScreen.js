@@ -80,6 +80,7 @@ const OrderScreen = ({ match, history }) => {
     return (
         loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
             <React.Fragment>
+                {userInfo.isAdmin && <Link to='/admin/orderlist' className='btn btn-light my-3'>Go Back</Link>}
                 <h1>Order {order._id}</h1>
                 <Row>
                     <Col md={8}>
