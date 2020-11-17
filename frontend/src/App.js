@@ -14,6 +14,7 @@ import ProductEditScreen from './Screens/ProductEditScreen';
 import ProductListScreen from './Screens/ProductListScreen';
 import ProductScreen from './Screens/ProductScreen';
 import ProfileScreen from './Screens/ProfileScreen';
+import WalletScreen from './Screens/WalletScreen';
 import RegisterScreen from './Screens/RegisterScreen';
 import ShippingScreen from './Screens/ShippingScreen';
 import UserEditScreen from './Screens/UserEditScreen';
@@ -32,6 +33,7 @@ const App = () => {
 					<Route path='/login' component={LoginScreen} />
 					<Route path='/register' component={RegisterScreen} />
 					<Route path='/profile' component={ProfileScreen} />
+					<Route path='/wallet/:id' component={WalletScreen} />
 					<Route path='/product/:id' component={ProductScreen} />
 					<Route path='/cart/:id?' component={CartScreen} />
 					<Route path='/admin/userlist' exact component={UserListScreen} />

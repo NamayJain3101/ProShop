@@ -15,6 +15,18 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    wallet: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    paymentResult: {
+        id: { type: String },
+        status: { type: String },
+        update_time: { type: String },
+        email_address: { type: String },
+        amount: { type: String },
+    },
     isAdmin: {
         type: Boolean,
         required: true,
