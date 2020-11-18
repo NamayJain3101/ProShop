@@ -47,7 +47,6 @@ const UserListScreen = ({ history, match }) => {
                                 <td>ID</td>
                                 <td>NAME</td>
                                 <td>EMAIL</td>
-                                <td>WALLET</td>
                                 <td>ADMIN</td>
                                 <td></td>
                             </tr>
@@ -59,7 +58,6 @@ const UserListScreen = ({ history, match }) => {
                                         <td>{user._id}</td>
                                         <td>{user.name}</td>
                                         <td><a href={`mailto:${user.email}`}>{user.email}</a></td>
-                                        <td>&#8377;{user.wallet}</td>
                                         <td>{user.isAdmin ? <FaCheck style={{ color: 'green' }} /> : <FaTimes style={{ color: 'red' }} />}</td>
                                         <td>
                                             <LinkContainer to={`/admin/user/${user._id}/edit`}>

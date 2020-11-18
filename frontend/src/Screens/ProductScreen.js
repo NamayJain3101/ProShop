@@ -126,7 +126,7 @@ const ProductScreen = ({ match, history }) => {
                         <Col md={6}>
                             <h2>Reviews</h2>
                             {product.reviews.length === 0 && <Message>No Reviews</Message>}
-                            <ListGroup variant='flush' style={{ maxHeight: '50vh', overflow: 'auto' }}>
+                            <ListGroup variant='flush'>
                                 {product.reviews.map(review => (
                                     <ListGroupItem key={review._id}>
                                         <strong>{review.name}</strong>
@@ -135,8 +135,6 @@ const ProductScreen = ({ match, history }) => {
                                         <p>{review.comment}</p>
                                     </ListGroupItem>
                                 ))}
-                            </ListGroup>
-                            <ListGroup variant='flush'>
                                 <ListGroupItem>
                                     <h2>Write a Review</h2>
                                     {errorProductReview && <Message variant='danger'>{errorProductReview}</Message>}
