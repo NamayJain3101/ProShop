@@ -48,6 +48,13 @@ const PaymentScreen = ({ history }) => {
                             value='COD'
                             onChange={(e) => setPaymentMethod(e.target.value)} >
                         </FormCheck>
+                        <FormCheck type='radio'
+                            label='Wallet'
+                            id='wallet'
+                            name='paymentMethod'
+                            value='Wallet'
+                            onChange={(e) => setPaymentMethod(e.target.value)} >
+                        </FormCheck>
                     </Col>
                 </FormGroup>
                 <Button type='submit' variant='primary'>
