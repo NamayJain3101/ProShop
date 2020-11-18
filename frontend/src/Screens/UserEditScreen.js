@@ -14,7 +14,6 @@ const UserEditScreen = ({ match, history }) => {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    const [wallet, setWallet] = useState(0)
     const [isAdmin, setIsAdmin] = useState(false)
 
     const dispatch = useDispatch()
@@ -37,7 +36,6 @@ const UserEditScreen = ({ match, history }) => {
             } else {
                 setName(user.name)
                 setEmail(user.email)
-                setWallet(user.wallet)
                 setIsAdmin(user.isAdmin)
             }
         }
@@ -49,7 +47,6 @@ const UserEditScreen = ({ match, history }) => {
             _id: userId,
             name,
             email,
-            wallet,
             isAdmin
         }))
     }
@@ -70,10 +67,6 @@ const UserEditScreen = ({ match, history }) => {
                         <FormGroup controlId='email'>
                             <FormLabel>Email: </FormLabel>
                             <FormControl type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}></FormControl>
-                        </FormGroup>
-                        <FormGroup controlId='wallet'>
-                            <FormLabel>Wallet: </FormLabel>
-                            <FormControl type='number' placeholder='Wallet' value={wallet} onChange={(e) => setWallet(e.target.value)}></FormControl>
                         </FormGroup>
                         <FormGroup controlId='isAdmin'>
                             <FormCheck type='checkbox' label='Is Admin' checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} />

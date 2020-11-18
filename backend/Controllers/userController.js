@@ -14,7 +14,6 @@ const authUser = asyncHandler(async(req, res) => {
             name: user.name,
             email: user.email,
             isAdmin: user.isAdmin,
-            wallet: user.wallet,
             token: generateToken(user._id)
         })
     } else {
@@ -44,7 +43,6 @@ const registerUser = asyncHandler(async(req, res) => {
             name: user.name,
             email: user.email,
             isAdmin: user.isAdmin,
-            wallet: user.wallet,
             token: generateToken(user._id)
         })
     } else {
@@ -63,7 +61,6 @@ const getUserProfile = asyncHandler(async(req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            wallet: user.wallet,
             isAdmin: user.isAdmin,
         })
     } else {
@@ -80,7 +77,6 @@ const updateUserProfile = asyncHandler(async(req, res) => {
     if (user) {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
-        user.wallet = req.body.wallet || user.wallet
         if (req.body.password) {
             user.password = req.body.password
         }
@@ -90,35 +86,11 @@ const updateUserProfile = asyncHandler(async(req, res) => {
             name: updatedUser.name,
             email: updatedUser.email,
             isAdmin: updatedUser.isAdmin,
-            wallet: updatedUser.wallet,
             token: generateToken(updatedUser._id)
         })
     } else {
         res.status(404)
         throw new Error('User not found')
-    }
-})
-
-// @desc    Update user wallet to paid
-// @route   PUT /api/users/:id/recharge
-// @access  Private
-const rechargeWallet = asyncHandler(async(req, res) => {
-    const user = await User.findById(req.params.id)
-    if (user) {
-        user.wallet = req.body.wallet
-        user.paymentResult = {
-            id: req.body.paymentResult.id,
-            status: req.body.paymentResult.status,
-            update_time: req.body.paymentResult.update_time,
-            email_address: req.body.paymentResult.payer.email_address,
-            amount: req.body.paymentResult.purchase_units[0].amount.value
-        }
-
-        const updatedUser = await user.save()
-        res.json(updatedUser)
-    } else {
-        res.status(404)
-        throw new Error('Order not found')
     }
 })
 
@@ -169,7 +141,6 @@ const updateUser = asyncHandler(async(req, res) => {
     if (user) {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
-        user.wallet = req.body.wallet || user.wallet
         user.isAdmin = req.body.isAdmin
         const updatedUser = await user.save()
         res.json({
@@ -177,7 +148,6 @@ const updateUser = asyncHandler(async(req, res) => {
             name: updatedUser.name,
             email: updatedUser.email,
             isAdmin: updatedUser.isAdmin,
-            wallet: updatedUser.wallet,
         })
     } else {
         res.status(404)
@@ -185,4 +155,4 @@ const updateUser = asyncHandler(async(req, res) => {
     }
 })
 
-export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser, getUserById, updateUser, rechargeWallet }
+export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser, getUserById, updateUser }
