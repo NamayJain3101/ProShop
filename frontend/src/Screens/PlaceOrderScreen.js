@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import { createOrder } from '../Actions/orderActions'
 import CheckoutSteps from '../Components/CheckoutSteps'
 import Message from '../Components/Message'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
+import { USER_DETAILS_RESET } from '../constants/userConstants'
 
 const PlaceOrderScreen = ({ history }) => {
     const cart = useSelector(state => state.cart)
@@ -27,6 +29,8 @@ const PlaceOrderScreen = ({ history }) => {
     useEffect(() => {
         if (success) {
             history.push(`/order/${order._id}`)
+            dispatch({ type: USER_DETAILS_RESET })
+            dispatch({ type: ORDER_CREATE_RESET })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history, success])
